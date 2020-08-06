@@ -1,0 +1,6 @@
+<Project>
+  <ItemGroup>
+    <PackageReference Update="SkiaSharp" Version="2.80.1"/>
+    <PackageReference Update="SkiaSharp.Views.WindowsForms" Version="2.80.1"/>
+  </ItemGroup>
+</Project>
