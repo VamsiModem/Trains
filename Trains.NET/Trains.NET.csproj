@@ -13,5 +13,11 @@
     <ProjectReference Include="..\Trains.NET.Engine\Trains.NET.Engine.csproj" />
     <ProjectReference Include="..\Trains.NET.Rendering\Trains.NET.Rendering.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Update="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.3.0-beta2.final">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
 
 </Project>

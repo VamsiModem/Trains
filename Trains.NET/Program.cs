@@ -14,7 +14,7 @@ namespace Trains.NET
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            using var from = new Form1();
+            using var from = new MainForm();
             Application.Run(from);
         }
     }
