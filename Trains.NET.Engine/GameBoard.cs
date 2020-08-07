@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Trains.NET.Engine
 {
-    public class GameBoard
+    public class GameBoard : IGameBoard
     {
         private readonly Dictionary<(int, int), Track> _tracks = new Dictionary<(int, int), Track>();
         public int Columns { get; set; }
@@ -11,7 +11,7 @@ namespace Trains.NET.Engine
 
         public void AddTrack(int column, int row)
         {
-            if(!_tracks.ContainsKey((column, row)))
+            if (!_tracks.ContainsKey((column, row)))
             {
                 _tracks.Add((column, row), new Track());
             }
@@ -19,7 +19,7 @@ namespace Trains.NET.Engine
 
         public IEnumerable<(int, int, Track)> GetTracks()
         {
-            foreach((int col, int row, Track track) in _tracks)
+            foreach ((int col, int row, Track track) in _tracks)
             {
                 yield return (col, row, track);
             }

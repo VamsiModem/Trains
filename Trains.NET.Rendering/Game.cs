@@ -1,22 +1,22 @@
 ﻿using System;
+using System.Collections.Generic;
 using SkiaSharp;
 using Trains.NET.Engine;
 
 namespace Trains.NET.Rendering
 {
-    public class Game
+    public class Game : IGame
     {
         public const int CellSize = 25;
         private int _width;
         private int _height;
-        private readonly GameBoard _gameBoard;
-        private readonly IBoardRenderer _gridRenderer = new GridRenderer();
-        private readonly IBoardRenderer _trackLayoutRenderer;
+        private readonly IGameBoard _gameBoard;
+        private readonly IEnumerable<IBoardRenderer> _boardRenderers;
         public Tool CurrentTool { get; set; }
-        public Game(GameBoard gameBoard)
+        public Game(IGameBoard gameBoard, IList<IBoardRenderer> boardRenderers)
         {
             _gameBoard = gameBoard;
-            _trackLayoutRenderer = new TrackLayoutRenderer(gameBoard);
+            _boardRenderers = boardRenderers;
         }
         public void SetSize(int width, int height)
         {
@@ -39,22 +39,22 @@ namespace Trains.NET.Rendering
         public void Render(SKSurface surface)
         {
             SKCanvas canvas = surface.Canvas;
-            canvas.Translate(1,1);
+            canvas.Translate(1, 1);
             canvas.Clear(SKColors.White);
             canvas.ClipRect(new SKRect(0, 0, _width + 2, _height + 2), SKClipOperation.Intersect);
-            canvas.Save();
-            _gridRenderer.Render(surface, _width, _height);
-            canvas.Restore();
-            canvas.Save();
-            _trackLayoutRenderer.Render(surface, _width, _height);
-            canvas.Restore();
+            foreach (IBoardRenderer renderer in _boardRenderers)
+            {
+                canvas.Save();
+                renderer.Render(surface, _width, _height);
+                canvas.Restore();
+            }
         }
 
         public void OnMouseDown(int x, int y)
         {
             var column = x / CellSize;
             var row = y / CellSize;
-            if(this.CurrentTool == Tool.Track)
+            if (this.CurrentTool == Tool.Track)
             {
                 _gameBoard.AddTrack(column, row);
             }

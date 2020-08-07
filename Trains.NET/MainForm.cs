@@ -1,7 +1,6 @@
 ﻿using System.Windows.Forms;
 using SkiaSharp.Views.Desktop;
 using System.Drawing;
-using Trains.NET.Engine;
 using Trains.NET.Rendering;
 using System;
 using System.Linq;
@@ -11,8 +10,9 @@ namespace Trains.NET
     public partial class MainForm : Form
     {
         private Game _game;
-        public MainForm()
+        public MainForm(Game game)
         {
+            _game = game;
             this.Text = "Trains.NET";
             this.AutoScaleMode = AutoScaleMode.Font;
             this.StartPosition = FormStartPosition.Manual;
@@ -35,7 +35,6 @@ namespace Trains.NET
                 buttonPanel.Controls.Add(CreateButton(tool));
             }
             
-            _game = new Game(new GameBoard());
             var skiaView = new SKControl()
             {
                 Dock = DockStyle.Fill

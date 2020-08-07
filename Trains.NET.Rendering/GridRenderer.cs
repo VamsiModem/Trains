@@ -2,7 +2,7 @@
 
 namespace Trains.NET.Rendering
 {
-    internal class GridRenderer : IBoardRenderer
+    public class GridRenderer : IBoardRenderer
     {
         private const int CellSize = 25;
         void IBoardRenderer.Render(SKSurface surface, int width, int height)

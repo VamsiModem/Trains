@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
+using Trains.NET.Rendering;
 
 namespace Trains.NET
 {
@@ -14,8 +16,21 @@ namespace Trains.NET
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            using var from = new MainForm();
+            using var from = CreateForm();
             Application.Run(from);
+        }
+
+        private static MainForm CreateForm()
+        {
+            var gameBoard = new Engine.GameBoard();
+            return new MainForm(new Game(
+                    gameBoard,
+                    new List<IBoardRenderer>
+                    {
+                        new GridRenderer(),
+                        new TrackLayoutRenderer(gameBoard, new TrackRenderer())
+                    })
+                ); ;
         }
     }
 }
