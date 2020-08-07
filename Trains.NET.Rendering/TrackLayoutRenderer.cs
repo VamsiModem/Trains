@@ -3,19 +3,19 @@ using Trains.NET.Engine;
 
 namespace Trains.NET.Rendering
 {
-    public class TrackLayoutRenderer : IBoardRenderer
+    internal class TrackLayoutRenderer : IBoardRenderer
     {
         
-        private readonly GameBoard _gameBoard;
-        private readonly TrackRenderer _trackRenderer;
+        private readonly IGameBoard _gameBoard;
+        private readonly ITrackRenderer _trackRenderer;
 
-        public TrackLayoutRenderer(GameBoard gameBoard, TrackRenderer trackRenderer)
+        public TrackLayoutRenderer(IGameBoard gameBoard, ITrackRenderer trackRenderer)
         {
             _gameBoard = gameBoard;
             _trackRenderer = trackRenderer;
         }
 
-        void IBoardRenderer.Render(SKSurface surface, int width, int height)
+        public void Render(SKSurface surface, int width, int height)
         {
             
             SKCanvas canvas = surface.Canvas;

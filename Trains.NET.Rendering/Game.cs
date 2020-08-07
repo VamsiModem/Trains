@@ -5,7 +5,7 @@ using Trains.NET.Engine;
 
 namespace Trains.NET.Rendering
 {
-    public class Game : IGame
+    internal class Game : IGame
     {
         public const int CellSize = 25;
         private int _width;
@@ -13,7 +13,7 @@ namespace Trains.NET.Rendering
         private readonly IGameBoard _gameBoard;
         private readonly IEnumerable<IBoardRenderer> _boardRenderers;
         public Tool CurrentTool { get; set; }
-        public Game(IGameBoard gameBoard, IList<IBoardRenderer> boardRenderers)
+        public Game(IGameBoard gameBoard, IEnumerable<IBoardRenderer> boardRenderers)
         {
             _gameBoard = gameBoard;
             _boardRenderers = boardRenderers;

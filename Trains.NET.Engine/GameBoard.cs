@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Trains.NET.Engine
 {
-    public class GameBoard : IGameBoard
+    internal class GameBoard : IGameBoard
     {
         private readonly Dictionary<(int, int), Track> _tracks = new Dictionary<(int, int), Track>();
         public int Columns { get; set; }

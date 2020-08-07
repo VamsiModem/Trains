@@ -9,8 +9,8 @@ namespace Trains.NET
 {
     public partial class MainForm : Form
     {
-        private Game _game;
-        public MainForm(Game game)
+        private readonly IGame _game;
+        public MainForm(IGame game)
         {
             _game = game;
             this.Text = "Trains.NET";
