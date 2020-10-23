@@ -12,26 +12,23 @@ namespace Trains.NET.Rendering
         private int _height;
         private readonly IGameBoard _gameBoard;
         private readonly IEnumerable<IBoardRenderer> _boardRenderers;
+        private readonly IPixelMapper _pixelMapper;
+
         public Tool CurrentTool { get; set; }
-        public Game(IGameBoard gameBoard, IEnumerable<IBoardRenderer> boardRenderers)
+        public Game(IGameBoard gameBoard, IEnumerable<IBoardRenderer> boardRenderers, IPixelMapper pixelMapper)
         {
             _gameBoard = gameBoard;
             _boardRenderers = boardRenderers;
+            _pixelMapper = pixelMapper;
         }
         public void SetSize(int width, int height)
         {
-            var columns = Math.Max(width / CellSize, 1);
-            //if (columns * CellSize > width)
-            //{
-            //    columns--;
-            //}
-            var rows = Math.Max(height / CellSize, 1);
-            //if (rows * CellSize > height && rows > 1)
-            //{
-            //    rows--;
-            //}
-            _width = columns * CellSize;
-            _height = rows * CellSize;
+            (int columns, int rows) = _pixelMapper.PixelsToCoords(width, height);
+            columns = Math.Max(width / CellSize, 1);
+            rows = Math.Max(height / CellSize, 1);
+
+            (_width, _height) = _pixelMapper.CoordsToPixels(columns, rows);
+
             _gameBoard.Rows = rows;
             _gameBoard.Columns = columns;
         }
@@ -52,8 +49,7 @@ namespace Trains.NET.Rendering
 
         public void OnMouseDown(int x, int y)
         {
-            var column = x / CellSize;
-            var row = y / CellSize;
+            (int column, int row) = _pixelMapper.PixelsToCoords(x, y);
             if (this.CurrentTool == Tool.Track)
             {
                 _gameBoard.AddTrack(column, row);

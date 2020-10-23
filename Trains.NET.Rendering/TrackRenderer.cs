@@ -5,16 +5,25 @@ namespace Trains.NET.Rendering
 {
     internal class TrackRenderer : ITrackRenderer
     {
+        private const int NumPlanks = 3;
+        private const int PlankWidth = 3;
+        private const int Padding = 4;
+        private const int TrackPadding = 7;
+        private const int TrackWidth = 3;
         public void Render(SKCanvas canvas, Track track, int width)
         {
-            const int numPlanks = 3;
-            float plankGap = width / numPlanks;
-            const int PlankWidth = 3;
-            const int Padding = 4;
-            const int TrackPadding = 7;
-            const int TrackWidth = 3;
+            if(track.Direction == TrackDirection.Vertical)
+            {
+                canvas.RotateDegrees(90, Game.CellSize / 2, Game.CellSize / 2);
+            }
+            RenderStraightTrack(canvas, width);
+        }
+
+        private static void RenderStraightTrack(SKCanvas canvas, int width)
+        {
+            float plankGap = width / NumPlanks;
             using var path = new SKPath();
-            for (int i = 1; i < numPlanks + 1; i++)
+            for (int i = 1; i < NumPlanks + 1; i++)
             {
                 var pos = (i * plankGap) - (plankGap / 2) + 1;
                 path.MoveTo(pos, Padding);
