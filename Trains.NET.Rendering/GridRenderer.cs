@@ -4,7 +4,7 @@ namespace Trains.NET.Rendering
 {
     public class GridRenderer : IBoardRenderer
     {
-        private const int CellSize = 25;
+        private const int CellSize = 40;
         void IBoardRenderer.Render(SKSurface surface, int width, int height)
         {
             SKCanvas canvas = surface.Canvas;

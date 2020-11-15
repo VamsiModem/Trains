@@ -1,5 +1,4 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Trains.NET.Engine
 {
@@ -13,7 +12,17 @@ namespace Trains.NET.Engine
         {
             if (!_tracks.ContainsKey((column, row)))
             {
-                _tracks.Add((column, row), new Track());
+                var track = new Track();
+                _tracks.Add((column, row), track);
+                SetBestTrackDirection(track, column, row);
+            }
+        }
+
+        private void SetBestTrackDirection(Track track, int column, int row)
+        {
+            if(_tracks.ContainsKey((column, row - 1)) || _tracks.ContainsKey((column, row + 1)))
+            {
+                track.Direction = TrackDirection.Vertical;
             }
         }
 

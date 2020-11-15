@@ -7,7 +7,7 @@ namespace Trains.NET.Rendering
 {
     internal class Game : IGame
     {
-        public const int CellSize = 25;
+        public const int CellSize = 40;
         private int _width;
         private int _height;
         private readonly IGameBoard _gameBoard;
